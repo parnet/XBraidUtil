@@ -37,24 +37,9 @@ namespace ug {
                 string suffix = GetDomainAlgebraSuffix<TDomain, TAlgebra>();
                 string tag = GetDomainAlgebraTag<TDomain, TAlgebra>();
 
-                // Braid Time Integrator
-                {
-                    typedef BiotBraidSpatialNorm<TDomain, TAlgebra> TBiotSpatialNorm;
-                    typedef BraidSpatialNorm<TDomain, TAlgebra> TSpatialNorm;
-                    string name_gf = string("BiotBraidSpatialNorm").append(suffix);
-                    reg.add_class_<TBiotSpatialNorm, TSpatialNorm>(name_gf, grp)
-                            .add_constructor()
-                            .add_method("norm", &TBiotSpatialNorm::norm, "None", "verbose","set the level of verbose (true / false)")
-                            .add_method("set_order", &TBiotSpatialNorm::set_order, "None", "verbose","set the level of verbose (true / false)")
-                            .add_method("set_parameter", &TBiotSpatialNorm::set_parameter, "None", "verbose","set the level of verbose (true / false)")
-
-                                    //.add_method("set_adapt_convergence", &TBraidIntegrator::set_adapt_conv, "None", "initial time","set t0 as initial time")
-                            .set_construct_as_smart_pointer(true);
-                    reg.add_class_to_group(name_gf, "BiotBraidSpatialNorm", tag);
-                }
 
                 {
-                    typedef GridFunctionIO<TDomain, TAlgebra> TIOGridFunction;
+                    typedef IOGridFunction<TDomain, TAlgebra> TIOGridFunction;
                     string name_gf = string("IOGridFunction").append(suffix);
                     reg.add_class_<TIOGridFunction>(name_gf, grp)
                             .add_constructor()

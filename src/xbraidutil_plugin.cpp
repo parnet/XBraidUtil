@@ -19,9 +19,7 @@
 #include "bridge/util.h"
 #include "bridge/util_domain_algebra_dependent.h"
 
-#include "ReadGridFunctionDirty.h"
-#include "BraidBiotEstimator.h"
-#include "BriatBiotControl.h"
+#include "IOGridFunction.h"
 
 using namespace std;
 using namespace ug::bridge;

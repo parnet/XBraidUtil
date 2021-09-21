@@ -26,7 +26,7 @@ using namespace ug::bridge;
 
 namespace ug {
 
-    namespace XBraidBiot {
+    namespace XBraidUtil {
 
         struct Functionality {
 
@@ -98,9 +98,9 @@ namespace ug {
 
 
     extern "C" void
-    InitUGPlugin_XBraidBiot(Registry *reg, string grp) {
-        using namespace XBraidBiot;
-        grp.append("XBraidBiot");
+    InitUGPlugin_XBraidUtil(Registry *reg, string grp) {
+        using namespace XBraidUtil;
+        grp.append("XBraidUtil");
         // Space Time Communicator
 
 

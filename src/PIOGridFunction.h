@@ -1,35 +1,41 @@
 //
-// Created by parnet on 20.09.21.
+// Created by parnet on 22.09.21.
 //
 
-#ifndef XBRAIDUTIL_IOGRIDFUNCTION_H
-#define XBRAIDUTIL_IOGRIDFUNCTION_H
+#ifndef UG_PLUGIN_XBRAIDUTIL_PIOGRIDFUNCTION_H
+#define UG_PLUGIN_XBRAIDUTIL_PIOGRIDFUNCTION_H
 
 #include <fstream>
 
 #include "lib_disc/function_spaces/grid_function.h"
 
 template<typename TDomain, typename TAlgebra>
-class IOGridFunction {
+class PIOGridFunction {
 public:
     typedef ug::GridFunction<TDomain, TAlgebra> TGridFunction;
     typedef SmartPtr<TGridFunction> SPGridFunction;
 
     typedef typename TAlgebra::vector_type::value_type TVectorValueType;
 
-    IOGridFunction() = default;
+    PIOGridFunction() = default;
 
-    ~IOGridFunction() = default;
+    ~PIOGridFunction() = default;
 
     std::vector<number> times;
 
     void write(SPGridFunction u, const char * path){
 
+        int mpi_rank;
+        MPI_Comm_rank( PCL_COMM_WORLD, &mpi_rank );
+
         auto *u_ref = u.get();
         std::ofstream outfile;
         size_t szVector = u_ref->size();
 
-        outfile.open(path, std::ios::binary | std::ios::out);
+        std::stringstream ss;
+        ss << path << "_p" << mpi_rank <<".gridfunction";
+
+        outfile.open(ss.str().c_str(), std::ios::binary | std::ios::out);
         outfile.write((const char * )&szVector, sizeof(size_t));
         // write the value for each gridpoint
         for (size_t i = 0; i < szVector; i++) {
@@ -39,9 +45,15 @@ public:
     }
 
     void read(SPGridFunction u, const char * path){
+        int mpi_rank;
+        MPI_Comm_rank( PCL_COMM_WORLD, &mpi_rank );
+
         auto *u_ref = u.get();
         std::ifstream infile;
-        infile.open(path, std::ios::binary | std::ios::in);
+
+        std::stringstream ss;
+        ss << path << "_p" << mpi_rank <<".gridfunction";
+        infile.open(ss.str().c_str(), std::ios::binary | std::ios::in);
 
         // read number of gridpoints todo consistency check?
         size_t szVector = 0;
@@ -58,4 +70,4 @@ public:
 };
 
 
-#endif //XBRAIDUTIL_IOGRIDFUNCTION_H
+#endif //UG_PLUGIN_XBRAIDUTIL_PIOGRIDFUNCTION_H

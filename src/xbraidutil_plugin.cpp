@@ -20,6 +20,7 @@
 #include "bridge/util_domain_algebra_dependent.h"
 
 #include "IOGridFunction.h"
+#include "PIOGridFunction.h"
 
 using namespace std;
 using namespace ug::bridge;
@@ -49,9 +50,17 @@ namespace ug {
                             .set_construct_as_smart_pointer(true);
                     reg.add_class_to_group(name_gf, "IOGridFunction", tag);
                 }
-
-
-
+                {
+                    typedef PIOGridFunction<TDomain, TAlgebra> TIOGridFunction;
+                    string name_gf = string("PIOGridFunction").append(suffix);
+                    reg.add_class_<TIOGridFunction>(name_gf, grp)
+                            .add_constructor()
+                            .add_method("write", &TIOGridFunction::write, "None", "verbose","set the level of verbose (true / false)")
+                            .add_method("read", &TIOGridFunction::read, "None", "verbose","set the level of verbose (true / false)")
+                                    //.add_method("set_adapt_convergence", &TBraidIntegrator::set_adapt_conv, "None", "initial time","set t0 as initial time")
+                            .set_construct_as_smart_pointer(true);
+                    reg.add_class_to_group(name_gf, "PIOGridFunction", tag);
+                }
             }
 
 

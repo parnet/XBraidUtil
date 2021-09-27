@@ -21,8 +21,6 @@ public:
 
     ~IOGridFunction() = default;
 
-    std::vector<number> times;
-
     void write(SPGridFunction u, const char * path){
 
         auto *u_ref = u.get();

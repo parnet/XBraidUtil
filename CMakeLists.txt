@@ -10,7 +10,7 @@ set(UG4_XBraidUtil_plugin_VERSION_MINOR 0.0)
 set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS_INIT} -fPIC")
 
 set(SOURCES src/xbraidutil_plugin.cpp
-             src/IOGridFunction.h)
+        src/io_gridfunction.h)
 
 
 if(UG_ROOT_CMAKE_PATH)

@@ -19,8 +19,9 @@
 #include "bridge/util.h"
 #include "bridge/util_domain_algebra_dependent.h"
 
-#include "IOGridFunction.h"
-#include "PIOGridFunction.h"
+#include "memory_observer.h"
+#include "io_gridfunction.h"
+#include "parallel_io_gridfunction.h"
 
 using namespace std;
 using namespace ug::bridge;

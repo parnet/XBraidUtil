@@ -27,12 +27,8 @@ using namespace std;
 using namespace ug::bridge;
 
 namespace ug {
-
     namespace XBraidUtil {
-
         struct Functionality {
-
-
             template<typename TDomain, typename TAlgebra>
             static void DomainAlgebra(Registry &reg, string grp) {
 

@@ -42,7 +42,10 @@ namespace ug {
                 auto *u_ref = u.get();
                 std::ifstream infile;
                 infile.open(path, std::ios::binary | std::ios::in);
-
+                if (!infile.good()){
+                    std::cout << "filename: " << path << std::endl << std::flush;
+                    UG_THROW("file does not exist");
+                }
                 // read number of gridpoints todo consistency check?
                 size_t szVector = 0;
                 infile.read((char *) &szVector, sizeof(size_t));

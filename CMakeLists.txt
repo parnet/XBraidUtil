@@ -25,11 +25,8 @@ if (buildEmbeddedPlugins)
     EXPORTSOURCES(${CMAKE_CURRENT_SOURCE_DIR} ${SOURCES})
 else (buildEmbeddedPlugins)
     add_library(${pluginName} SHARED ${SOURCES})
-    #add_library(${pluginName} SHARED ${CMAKE_CURRENT_SOURCE_DIR}/libs/xbraid/braid/libbraid.a)
     target_link_libraries(${pluginName} ug4)
-    #add_dependencies(${pluginName} UG_PLUGIN_Poroelasticity)
     LINK_DIRECTORIES(${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
-    #MESSAGE(${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif (buildEmbeddedPlugins)
 
 

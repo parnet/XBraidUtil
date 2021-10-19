@@ -19,27 +19,27 @@ namespace ug {
     namespace XBraidUtil {
         class memory_observer {
         public:
-            static long long getVirtualMemoryTotal() {
+            static unsigned long getVirtualMemoryTotal() {
                 struct sysinfo memInfo;
                 sysinfo (&memInfo);
-                long long totalVirtualMem = memInfo.totalram;
+                unsigned long totalVirtualMem = memInfo.totalram;
                 totalVirtualMem += memInfo.totalswap;
                 totalVirtualMem *= memInfo.mem_unit;
                 return totalVirtualMem;
             }
 
-            static long long getVirtualMemoryUsed() {
+            static unsigned long getVirtualMemoryUsed() {
                 struct sysinfo memInfo;
                 sysinfo (&memInfo);
-                long long virtualMemUsed = memInfo.totalram - memInfo.freeram;
+                unsigned long virtualMemUsed = memInfo.totalram - memInfo.freeram;
                 virtualMemUsed += memInfo.totalswap - memInfo.freeswap;
                 virtualMemUsed *= memInfo.mem_unit;
                 return virtualMemUsed;
             }
 
 
-            static int parseLine(char *line) {
-                int i = strlen(line);
+            static unsigned long parseLine(char *line) {
+                unsigned long i = strlen(line);
                 const char *p = line;
                 while (*p < '0' || *p > '9') p++;
                 line[i - 3] = '\0';
@@ -47,9 +47,9 @@ namespace ug {
                 return i;
             }
 
-            static int getVirtualMemoryConsumed() {
+            static unsigned long getVirtualMemoryConsumed() {
                 FILE *file = fopen("/proc/self/status", "r");
-                int result = -1;
+                unsigned long result = -1;
                 char line[128];
 
                 while (fgets(line, 128, file) != nullptr) {
@@ -62,24 +62,24 @@ namespace ug {
                 return result;
             }
 
-            static long long getPhysicalMemoryTotal() {
+            static unsigned long getPhysicalMemoryTotal() {
                 struct sysinfo memInfo;
-                long long totalPhysMem = memInfo.totalram;
+                unsigned long totalPhysMem = memInfo.totalram;
                 totalPhysMem *= memInfo.mem_unit;
                 return totalPhysMem;
 
             }
 
-            static long long getPhysicalMemoryUsed() {
+            static unsigned long getPhysicalMemoryUsed() {
                 struct sysinfo memInfo;
-                long long physMemUsed = memInfo.totalram - memInfo.freeram;
-                physMemUsed *= memInfo.mem_unit;
+                unsigned long physMemUsed = memInfo.totalram - memInfo.freeram;
+                //physMemUsed *= memInfo.mem_unit;
                 return physMemUsed;
             }
 
-            static int getPhysicalMemoryConsumed() {
+            static unsigned long getPhysicalMemoryConsumed() {
                 FILE *file = fopen("/proc/self/status", "r");
-                int result = -1;
+                unsigned long result = -1;
                 char line[128];
 
                 while (fgets(line, 128, file) != nullptr) {

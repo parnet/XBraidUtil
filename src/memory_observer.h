@@ -70,6 +70,7 @@ namespace ug {
 
             }
 
+
             static unsigned long getPhysicalMemoryUsed() {
                 struct sysinfo memInfo;
                 unsigned long physMemUsed = memInfo.totalram - memInfo.freeram;

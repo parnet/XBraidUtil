@@ -35,7 +35,12 @@ namespace ug {
                 size_t szVector = u_ref->size();
 
                 std::stringstream ss;
-                ss << path << "_p" << mpi_rank << ".gridfunction";
+                if (mpi_rank == 0){
+                    ss << path << ".gridfunction";
+                } else {
+                    ss << path << "_p" << mpi_rank << ".gridfunction";
+                }
+
 
                 outfile.open(ss.str().c_str(), std::ios::binary | std::ios::out);
                 outfile.write((const char *) &szVector, sizeof(size_t));
@@ -54,7 +59,12 @@ namespace ug {
                 std::ifstream infile;
 
                 std::stringstream ss;
-                ss << path << "_p" << mpi_rank << ".gridfunction";
+                if (mpi_rank == 0){
+                    ss << path << ".gridfunction";
+                } else {
+                    ss << path << "_p" << mpi_rank << ".gridfunction";
+                }
+
                 infile.open(ss.str().c_str(), std::ios::binary | std::ios::in);
 
                 // read number of gridpoints todo consistency check?

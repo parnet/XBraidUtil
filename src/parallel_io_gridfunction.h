@@ -67,6 +67,11 @@ namespace ug {
 
                 infile.open(ss.str().c_str(), std::ios::binary | std::ios::in);
 
+                if (!infile.good()){
+                    std::cout << "filename: " << path << std::endl << std::flush;
+                    UG_THROW("file does not exist");
+                }
+
                 // read number of gridpoints todo consistency check?
                 size_t szVector = 0;
                 infile.read((char *) &szVector, sizeof(size_t));

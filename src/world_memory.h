@@ -7,6 +7,11 @@
 
 #include "memory_observer.h"
 #include <vector>
+#include "lib_disc/function_spaces/grid_function.h"
+
+#include "lib_disc/time_disc/time_integrator_observers/time_integrator_observer_interface.h"
+
+
 namespace ug {
 
     namespace XBraidUtil {
@@ -74,12 +79,41 @@ namespace ug {
             MPI_Allgather(sbuf, 1, MPI_UNSIGNED_LONG,
                           rbuf, 1, MPI_UNSIGNED_LONG,
                           PCL_COMM_WORLD);
-
+            unsigned long summ = 0.0;
             for(int i = 0; i < size; i++){
+                summ += rbuf[i];
                 std::cout << i << ": " << rbuf[i] << std::endl;
             } // todo return for lua?
+            std::cout << "Total : " << rbuf[i] << std::endl;
             //return distribution;
         }
+
+
+
+
+        /// Sample class for integration observer: Output to VTK
+        template<class TDomain, class TAlgebra>
+        class MemoryObserver
+                : public ITimeIntegratorObserver<TDomain, TAlgebra> {
+        public:
+            typedef ITimeIntegratorObserver <TDomain, TAlgebra> base_type;
+            typedef GridFunction<TDomain, TAlgebra> grid_function_type;
+
+            MemoryObserver() {}
+
+            virtual ~MemoryObserver() {  }
+
+            virtual bool step_process(SmartPtr <grid_function_type> uNew, int step, number time, number dt) override {
+                get_world_memory_distribution();
+                return true;
+            }
+        };
+
+
+
+
+
+
     }}
 
 #endif //UG_PLUGIN_XBRAIDUTIL_WORLD_MEMORY_H

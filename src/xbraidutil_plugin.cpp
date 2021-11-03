@@ -59,6 +59,15 @@ namespace ug {
                             .set_construct_as_smart_pointer(true);
                     reg.add_class_to_group(name_gf, "PIOGridFunction", tag);
                 }
+
+                {
+                    typedef MemoryObserver<TDomain, TAlgebra> T;
+                    string name_gf = string("MemoryObserver").append(suffix);
+                    reg.add_class_<T, typename T::base_type>(name_gf, grp)
+                            .add_constructor()
+                            .set_construct_as_smart_pointer(true);
+                    reg.add_class_to_group(name_gf, "MemoryObserver", tag);
+                }
             }
 
 

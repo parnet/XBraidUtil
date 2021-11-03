@@ -58,9 +58,13 @@ namespace ug {
                           rbuf, 1, MPI_UNSIGNED_LONG,
                           MPI_COMM_WORLD);
 
-            for(int i = 0; i < size; i++){
+            unsigned long summ = 0.0;
+            for (int i = 0; i < size; i++) {
+                summ += rbuf[i];
                 std::cout << i << ": " << rbuf[i] << std::endl;
             } // todo return for lua?
+            std::cout << "Total : " << summ << std::endl;
+
             //return distribution;
         }
 
@@ -84,14 +88,13 @@ namespace ug {
                 summ += rbuf[i];
                 std::cout << i << ": " << rbuf[i] << std::endl;
             } // todo return for lua?
-            std::cout << "Total : " << rbuf[i] << std::endl;
+            std::cout << "Total : " << summ << std::endl;
             //return distribution;
         }
 
 
 
 
-        /// Sample class for integration observer: Output to VTK
         template<class TDomain, class TAlgebra>
         class MemoryObserver
                 : public ITimeIntegratorObserver<TDomain, TAlgebra> {

@@ -20,6 +20,7 @@
 #include "bridge/util_domain_algebra_dependent.h"
 
 #include "memory_observer.h"
+#include "world_memory.h"
 #include "io_gridfunction.h"
 #include "parallel_io_gridfunction.h"
 
@@ -84,7 +85,18 @@ namespace ug {
                 string tag = GetAlgebraTag<TAlgebra>();
             }
 
-            static void Common(Registry &reg, string grp) { }
+            static void Common(Registry &reg, string grp) {
+                reg.add_function("get_virtual_memory_total",&XBraidUtil::get_virtual_memory_total,"","","");
+                reg.add_function("get_virtual_memory_used",&XBraidUtil::get_virtual_memory_used,"","","");
+                reg.add_function("get_virtual_memory_consumed",&XBraidUtil::get_virtual_memory_consumed,"","","");
+                reg.add_function("get_physical_memory_total",&XBraidUtil::get_physical_memory_total,"","","");
+                reg.add_function("get_physical_memory_used",&XBraidUtil::get_physical_memory_used,"","","");
+                reg.add_function("get_physical_memory_consumed",&XBraidUtil::get_physical_memory_consumed,"","","");
+
+                reg.add_function("get_world_memory_consumed",&XBraidUtil::get_world_memory_consumed,"","","");
+                reg.add_function("get_spatial_memory_consumed",&XBraidUtil::get_spatial_memory_consumed,"","","");
+                reg.add_function("get_world_memory_distribution",&XBraidUtil::get_world_memory_distribution,"","","");
+            }
 
         };
     } // end namespace XBraidIntegrator

@@ -17,9 +17,17 @@
 namespace ug {
 
     namespace XBraidUtil {
-        class memory_observer {
-        public:
-            static unsigned long getVirtualMemoryTotal() {
+
+        unsigned long parseLine(char *line) {
+            unsigned long i = strlen(line);
+            const char *p = line;
+            while (*p < '0' || *p > '9') p++;
+            line[i - 3] = '\0';
+            i = atoi(p);
+            return i;
+        }
+
+            unsigned long get_virtual_memory_total() {
                 struct sysinfo memInfo;
                 sysinfo (&memInfo);
                 unsigned long totalVirtualMem = memInfo.totalram;
@@ -28,7 +36,7 @@ namespace ug {
                 return totalVirtualMem;
             }
 
-            static unsigned long getVirtualMemoryUsed() {
+            unsigned long get_virtual_memory_used() {
                 struct sysinfo memInfo;
                 sysinfo (&memInfo);
                 unsigned long virtualMemUsed = memInfo.totalram - memInfo.freeram;
@@ -38,16 +46,7 @@ namespace ug {
             }
 
 
-            static unsigned long parseLine(char *line) {
-                unsigned long i = strlen(line);
-                const char *p = line;
-                while (*p < '0' || *p > '9') p++;
-                line[i - 3] = '\0';
-                i = atoi(p);
-                return i;
-            }
-
-            static unsigned long getVirtualMemoryConsumed() {
+            unsigned long get_virtual_memory_consumed() {
                 FILE *file = fopen("/proc/self/status", "r");
                 unsigned long result = -1;
                 char line[128];
@@ -62,23 +61,21 @@ namespace ug {
                 return result;
             }
 
-            static unsigned long getPhysicalMemoryTotal() {
+            unsigned long get_physical_memory_total() {
                 struct sysinfo memInfo;
                 unsigned long totalPhysMem = memInfo.totalram;
                 totalPhysMem *= memInfo.mem_unit;
                 return totalPhysMem;
-
             }
 
-
-            static unsigned long getPhysicalMemoryUsed() {
+            unsigned long get_physical_memory_used() {
                 struct sysinfo memInfo;
                 unsigned long physMemUsed = memInfo.totalram - memInfo.freeram;
-                //physMemUsed *= memInfo.mem_unit;
+                physMemUsed *= memInfo.mem_unit;
                 return physMemUsed;
             }
 
-            static unsigned long getPhysicalMemoryConsumed() {
+            unsigned long get_physical_memory_consumed() {
                 FILE *file = fopen("/proc/self/status", "r");
                 unsigned long result = -1;
                 char line[128];
@@ -92,8 +89,10 @@ namespace ug {
                 fclose(file);
                 return result;
             }
-        };
-    }}
+
+
+    }
+}
 
 
 #endif //UG_PLUGIN_XBRAIDUTIL_MEMORY_OBSERVER_H

@@ -96,6 +96,7 @@ namespace ug {
                 reg.add_function("get_world_memory_consumed",&XBraidUtil::get_world_memory_consumed,"","","");
                 reg.add_function("get_spatial_memory_consumed",&XBraidUtil::get_spatial_memory_consumed,"","","");
                 reg.add_function("get_world_memory_distribution",&XBraidUtil::get_world_memory_distribution,"","","");
+                reg.add_function("get_spatial_memory_distribution",&XBraidUtil::get_spatial_memory_distribution,"","","");
             }
 
         };

@@ -81,7 +81,6 @@ namespace ug {
                 char line[128];
 
                 while (fgets(line, 128, file) != nullptr) {
-                    std::cout << line << std::endl;
                     if (strncmp(line, "VmRSS:", 6) == 0) {
                         result = parseLine(line);
                         break;

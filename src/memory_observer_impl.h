@@ -39,153 +39,80 @@ namespace ug {
             return virtualMemUsed;
         }
 
+        unsigned long get_virtual_memory_consumed() {
+            FILE *file = fopen("/proc/self/status", "r");
+            unsigned long result = -1;
+            char line[128];
 
-        FILE *file = fopen("/proc/self/status", "r");
-        unsigned long result = -1;
-        char line[128];
+            while (fgets(line, 128, file) != nullptr) {
+                if (strncmp(line, "VmSize:", 7) == 0) {
+                    result = parseLine(line);
+                    break;
+                }
+            }
+            fclose(file);
+            return result;
+        }
 
-        while (fgets(line, 128, file) != nullptr) {
-        if (strncmp(line, "VmSize:", 7) == 0) {
-        result = parseLine(line);
-        break;
-    }
-}
-fclose(file);
-return result;
-}
+        unsigned long get_virtual_memory_peak() {
+            FILE *file = fopen("/proc/self/status", "r");
+            unsigned long result = -1;
+            char line[128];
 
-unsigned long get_virtual_memory_peak() {
-    FILE *file = fopen("/proc/self/status", "r");
-    unsigned long result = -1;
-    char line[128];
+            while (fgets(line, 128, file) != nullptr) {
+                if (strncmp(line, "VmPeak:", 7) == 0) {
+                    result = parseLine(line);
+                    break;
+                }
+            }
+            fclose(file);
+            return result;
+        }
 
-    while (fgets(line, 128, file) != nullptr) {
-        if (strncmp(line, "VmPeak:", 7) == 0) {
-            result = parseLine(line);
-            break;
+        unsigned long get_physical_memory_total() {
+            struct sysinfo memInfo;
+            unsigned long totalPhysMem = memInfo.totalram;
+            totalPhysMem *= memInfo.mem_unit;
+            return totalPhysMem;
+        }
+
+        unsigned long get_physical_memory_used() {
+            struct sysinfo memInfo;
+            unsigned long physMemUsed = memInfo.totalram - memInfo.freeram;
+            physMemUsed *= memInfo.mem_unit;
+            return physMemUsed;
+        }
+
+        unsigned long get_physical_memory_consumed() {
+            FILE *file = fopen("/proc/self/status", "r");
+            unsigned long result = -1;
+            char line[128];
+
+            while (fgets(line, 128, file) != nullptr) {
+                if (strncmp(line, "VmRSS:", 6) == 0) {
+                    result = parseLine(line);
+                    break;
+                }
+            }
+            fclose(file);
+            return result;
+        }
+
+        unsigned long get_physical_memory_peak() {
+            FILE *file = fopen("/proc/self/status", "r");
+            unsigned long result = -1;
+            char line[128];
+
+            while (fgets(line, 128, file) != nullptr) {
+                if (strncmp(line, "VmHWM:", 6) == 0) {
+                    result = parseLine(line);
+                    break;
+                }
+            }
+            fclose(file);
+            return result;
         }
     }
-    fclose(file);
-    return result;
 }
 
-unsigned long get_physical_memory_total() {
-    struct sysinfo memInfo;
-    unsigned long totalPhysMem = memInfo.totalram;
-    totalPhysMem *= memInfo.mem_unit;
-    return totalPhysMem;
-}
-
-unsigned long get_physical_memory_used() {
-    struct sysinfo memInfo;
-    unsigned long physMemUsed = memInfo.totalram - memInfo.freeram;
-    physMemUsed *= memInfo.mem_unit;
-    return physMemUsed;
-}
-
-unsigned long get_physical_memory_consumed() {
-    FILE *file = fopen("/proc/self/status", "r");
-    unsigned long result = -1;
-    char line[128];
-
-    while (fgets(line, 128, file) != nullptr) {
-        if (strncmp(line, "VmRSS:", 6) == 0) {
-            result = parseLine(line);
-            break;
-        }
-    }
-    fclose(file);
-    return result;
-}
-
-unsigned long get_physical_memory_peak() {
-    FILE *file = fopen("/proc/self/status", "r");
-    unsigned long result = -1;
-    char line[128];
-
-    while (fgets(line, 128, file) != nullptr) {
-        if (strncmp(line, "VmHWM:", 6) == 0) {
-            result = parseLine(line);
-            break;
-        }
-    }
-    fclose(file);
-    return result;
-}
-}
-}unsigned long get_virtual_memory_consumed() {
-    FILE *file = fopen("/proc/self/status", "r");
-    unsigned long result = -1;
-    char line[128];
-
-    while (fgets(line, 128, file) != nullptr) {
-        if (strncmp(line, "VmSize:", 7) == 0) {
-            result = parseLine(line);
-            break;
-        }
-    }
-    fclose(file);
-    return result;
-}
-
-unsigned long get_virtual_memory_peak() {
-    FILE *file = fopen("/proc/self/status", "r");
-    unsigned long result = -1;
-    char line[128];
-
-    while (fgets(line, 128, file) != nullptr) {
-        if (strncmp(line, "VmPeak:", 7) == 0) {
-            result = parseLine(line);
-            break;
-        }
-    }
-    fclose(file);
-    return result;
-}
-
-unsigned long get_physical_memory_total() {
-    struct sysinfo memInfo;
-    unsigned long totalPhysMem = memInfo.totalram;
-    totalPhysMem *= memInfo.mem_unit;
-    return totalPhysMem;
-}
-
-unsigned long get_physical_memory_used() {
-    struct sysinfo memInfo;
-    unsigned long physMemUsed = memInfo.totalram - memInfo.freeram;
-    physMemUsed *= memInfo.mem_unit;
-    return physMemUsed;
-}
-
-unsigned long get_physical_memory_consumed() {
-    FILE *file = fopen("/proc/self/status", "r");
-    unsigned long result = -1;
-    char line[128];
-
-    while (fgets(line, 128, file) != nullptr) {
-        if (strncmp(line, "VmRSS:", 6) == 0) {
-            result = parseLine(line);
-            break;
-        }
-    }
-    fclose(file);
-    return result;
-}
-
-unsigned long get_physical_memory_peak() {
-    FILE *file = fopen("/proc/self/status", "r");
-    unsigned long result = -1;
-    char line[128];
-
-    while (fgets(line, 128, file) != nullptr) {
-        if (strncmp(line, "VmHWM:", 6) == 0) {
-            result = parseLine(line);
-            break;
-        }
-    }
-    fclose(file);
-    return result;
-}
-}
-}
 #endif //UG_PLUGIN_XBRAIDUTIL_MEMORY_OBSERVER_IMPL_H

@@ -20,7 +20,7 @@ namespace ug {
         unsigned long get_spatial_memory_consumed();
 
 
-        void get_world_memory_distribution() ;
+        void get_world_memory_distribution();
 
         void get_spatial_memory_distribution();
 

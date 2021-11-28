@@ -29,10 +29,6 @@ namespace ug {
         }
 
         unsigned long get_virtual_memory_total(){
-            return 0;
-        }
-
-        unsigned long get_virtual_memory_used(){
             struct sysinfo memInfo;
             sysinfo (&memInfo);
             unsigned long totalVirtualMem = memInfo.totalram;
@@ -41,11 +37,7 @@ namespace ug {
             return totalVirtualMem;
         }
 
-        unsigned long get_physical_memory_consumed(){
-            return 0;
-        }
-
-        unsigned long get_physical_memory_peak(){
+        unsigned long get_virtual_memory_used(){
             struct sysinfo memInfo;
             sysinfo (&memInfo);
             unsigned long virtualMemUsed = memInfo.totalram - memInfo.freeram;

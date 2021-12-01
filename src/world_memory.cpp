@@ -2,8 +2,6 @@
 // Created by maro on 01.12.21.
 //
 
-#ifndef UG_PLUGIN_XBRAIDUTIL_WORLD_MEMORY_IMPL_H
-#define UG_PLUGIN_XBRAIDUTIL_WORLD_MEMORY_IMPL_H
 #include "world_memory.h"
 
 
@@ -93,5 +91,3 @@ namespace ug {
         }
 
     }}
-
-#endif //UG_PLUGIN_XBRAIDUTIL_WORLD_MEMORY_IMPL_H

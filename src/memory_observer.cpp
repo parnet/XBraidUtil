@@ -2,9 +2,6 @@
 // Created by maro on 27.11.21.
 //
 
-#ifndef UG_PLUGIN_XBRAIDUTIL_MEMORY_OBSERVER_IMPL_H
-#define UG_PLUGIN_XBRAIDUTIL_MEMORY_OBSERVER_IMPL_H
-
 #include "memory_observer.h"
 
 
@@ -117,5 +114,3 @@ namespace ug {
     }
 }
 
-
-#endif //UG_PLUGIN_XBRAIDUTIL_MEMORY_OBSERVER_IMPL_H

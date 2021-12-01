@@ -11,10 +11,12 @@ set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS_INIT} -fPIC")
 
 set(SOURCES src/xbraidutil_plugin.cpp
         src/io_gridfunction.h
+
         src/world_memory.h
-        src/world_memory_impl.h
+        src/world_memory.cpp
+
         src/memory_observer.h
-        src/memory_observer_impl.h
+        src/memory_observer.cpp
         )
 
 
